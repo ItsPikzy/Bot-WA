@@ -50,7 +50,7 @@ async function msgUtil(msg, contact) {
         const groupChat = await msg.getChat();
         if(groupChat.isGroup) {
           if(cmds.botAdmin) {
-            const botChatObj = groupChat.participants.find(chatObj => chatObj.id.user === WhatsApp.info.wid.user);
+            const botChatObj = groupChat.participants.find(chatObj => chatObj.id.user === client.info.wid.user);
             if(!botChatObj.isAdmin) return param.reply("Saya tidak dapat menjalankan perintah dikarenakan saya bukan admin grup!");
           } else if(cmds.userAdmin) {
             const userChatObj = groupChat.participants.find(chatObj => chatObj.id.user === msg.author);
@@ -103,8 +103,8 @@ const replyMessage = function(message) {
 
 const sendMessage = function(message) {
 	return function(msg, options = {}) {
-		if(message.fromMe) return WhatsApp.sendMessage(message.to, msg, options);
-		else return WhatsApp.sendMessage(message.from, msg, options);
+		if(message.fromMe) return client.sendMessage(message.to, msg, options);
+		else return client.sendMessage(message.from, msg, options);
 	}
 }
 

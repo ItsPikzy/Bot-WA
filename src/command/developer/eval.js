@@ -33,7 +33,7 @@ module.exports = {
 
         p.reply(evaled);
       } catch (e) {
-      	p.reply(`Error: ${e}`);
+      	p.reply(`${e}`);
       }
     } catch (e) {
 		  console.error(e);

@@ -11,8 +11,6 @@ module.exports = {
 		try {
 			const chats = await client.getChats();
 			let info = client.info;
-	    const memo = await osu.mem.used();
-	    const cpus = await sistemInfo.cpu();
 
       let text = `*Connection info*`;
       text += `\n - User name: *${info.pushname}*`;

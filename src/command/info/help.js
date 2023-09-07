@@ -18,15 +18,15 @@ module.exports = {
 
           const helpCommands = [];
           for(let file of readdirSync(`./src/command/${category}`).filter(file => file.endsWith('.js'))) {
-            const data = require(`@src/command/${cat}/${file}`);
+            const data = require(`@src/command/${category}/${file}`);
             if(data.name && data.run) {
               helpCommands.push(data.name);
             }
-            delete require.cache[require.resolve(`@src/command/${cat}/${file}`)];
+            delete require.cache[require.resolve(`@src/command/${category}/${file}`)];
           }
 
           const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
-          help.push(`➡ *${categoryName} (${commandsFile.length})*\n${helpCommands.join(', ')}`);
+          help.push(`➡ *${categoryName} (${helpCommands.length})*\n${helpCommands.join(', ')}`);
         }
       	p.reply(`My Commands List\n\n${help.join('\n').toString()}`);
 			} else {

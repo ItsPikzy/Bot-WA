@@ -11,7 +11,7 @@ module.exports = {
 			const invite = p.args.join(' ');
 			if(!invite) return p.reply("Mohon berikan link invite yang valid!");
 			try {
-        await WhatsApp.acceptInvite(inviteCode);
+        await client.acceptInvite(inviteCode);
         p.reply(`Berhasil bergabung ke grup melalui link yang Anda berikan`);
       } catch (e) {
         p.reply(`Kode undangan itu tampaknya tidak valid.\nError: *_${e.message}_*`);
