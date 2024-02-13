@@ -31,7 +31,7 @@ class BotWhatsApp extends Client {
         //executablePath: '/usr/bin/chromium-browser',
         //executablePath: '/usr/bin/google-chrome',
       },
-      ffmpeg: '/root/ffmpeg.exe',
+      ffmpeg: './ffmpeg.exe',
       authStrategy: new LocalAuth() /*new RemoteAuth({
         store: store,
         backupSyncIntervalMs: 1000000,
