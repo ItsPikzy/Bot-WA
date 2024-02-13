@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 
 	    chat.leave();
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

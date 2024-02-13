@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 const { readdirSync } = require('fs');

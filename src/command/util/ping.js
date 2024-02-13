@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 			await p.msg.getChat();
 			p.reply(`Pong 🏓\n${Date.now() - time}ms`);
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

@@ -1,11 +1,9 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
-module.exports = async(reason) => {
-	console.log('Whatsapp is disconnected!');
-	console.log('Reason disconnect: ', reason);
-	client.destroy();
-	client.initialize();
+module.exports = (reason) => {
+	console.log('Bot Whatsapp terputus dengan alasan', reason);
+	client.restart();
 }

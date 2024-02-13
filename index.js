@@ -1,59 +1,83 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
-require("module-alias/register");
-require("dotenv").config();
-const wa = require('whatsapp-web.js');
+require('dotenv').config();
+require('module-alias/register');
 
-global.client = new wa.Client({
-  restartOnAuthFail: true,
-  puppeteer: {
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--single-process', // <- this one doesn't works in Windows
-      '--disable-gpu'
-    ],
-    ignoreDefaultArgs: ['--disable-extensions'],
-    //takeoverOnConflict: true,
-    //takeoverTimeoutMs: 0,
-    //executablePath: '/usr/bin/chromium-browser',
-    //executablePath: '/usr/bin/google-chrome',
-  },
-  authStrategy: new wa.LocalAuth()
-});
-global.thisConfig = require('@src/config.js');
+const { Client, LocalAuth, RemoteAuth } = require('whatsapp-web.js');/*
+const { MongoStore } = require('wwebjs-mongo');
+const mongoose = require('mongoose');
+const store = new MongoStore({ mongoose: mongoose });*/
 
-require('@util/global.js');
+class BotWhatsApp extends Client {
+  constructor() {
+    super({
+      restartOnAuthFail: true,
+      puppeteer: {
+        headless: true,
+        args: [ '--no-sandbox', '--disable-setuid-sandbox' ], /*[
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-accelerated-2d-canvas',
+          '--no-first-run',
+          '--no-zygote',
+          '--single-process', // <- this one doesn't works in Windows
+          '--disable-gpu'
+        ],*/
+        //ignoreDefaultArgs: ['--disable-extensions'],
+        //executablePath: '/usr/bin/chromium-browser',
+        //executablePath: '/usr/bin/google-chrome',
+      },
+      ffmpeg: '/root/ffmpeg.exe',
+      authStrategy: new LocalAuth() /*new RemoteAuth({
+        store: store,
+        backupSyncIntervalMs: 1000000,
+      })*/
+    });
 
-client.initialize();
+    this.name = 'Chloe Xaviera';
+    this.version = '0.1.3';
+    this.readyAtTimestamp = null;
 
-global.WhatsAppUptime = Date.now();
-global.WhatsAppOnline = false;
+    this.on('ready', () => {
+      this.readyAtTimestamp = Date.now();
+    });
 
-global.WhatsAppOfflineCheck = WhatsAppOfflineCheck;
-function WhatsAppOfflineCheck() {
-  if(WhatsAppOnline) return (Date.now() - WhatsAppUptime) >= 21530000;
-  else return true;
-}
+    this.on('disconnected', () => {
+      this.readyAtTimestamp = null;
+    });
 
-setInterval(restartWhatsApp, 60000);
+    this.cooldowns = new Map();
+    this.commands = new Map();
+  }
 
-function restartWhatsApp() {
-  if((Date.now() - WhatsAppUptime) >= 21600000) {
-    WhatsAppUptime = Date.now();
-    if(WhatsAppOnline) {
-      WhatsAppOnline = false;
-      console.log("Restarting bot!");
-      client.destroy();
-      client.initialize();
-    }
+  get readyAt() {
+    return this.readyTimestamp && new Date(this.readyTimestamp);
+  }
+
+  get uptime() {
+    return this.readyTimestamp && Date.now() - this.readyTimestamp;
+  }
+
+  get readyToRestart() {
+    return this.readyTimestamp && Date.now() - this.readyTimestamp >= 21600000;
+  }
+
+  restart() {
+    if(this.readyAt) {
+      this.readyTimestamp = null;
+      this.destroy();
+      this.initialize();
+      return true;
+    } else return false;
   }
 }
+
+global.client = new BotWhatsApp();
+global.thisConfig = require('./src/config.js');
+client.initialize();
+
+require('@util/global.js');

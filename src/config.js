@@ -1,10 +1,10 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
   cd_command: 5,
   prefix: "!",
-  ownersWA: ["6285714181925", "6282235498885"]
+  ownersWA: ["62xxxxxxxx"] // masukin nomer bebas mau satu atau lebih dimulai dengan kode negara, ganti result arraynya
 }

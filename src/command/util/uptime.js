@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
 		try {
 			p.reply(`Uptime : *${prettyMs(process.uptime() * 1000, { secondsDecimalDigits: 0, verbose: true })}*`)
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

@@ -1,11 +1,11 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 const qrcode = require('qrcode-terminal');
 
-module.exports = async(qr) => {
+module.exports = (qr) => {
 	console.log("Scan QR code pada WhatsAppnya ya!");
 	qrcode.generate(qr, {small: true});
 }

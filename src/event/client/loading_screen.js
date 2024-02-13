@@ -1,8 +1,8 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
-module.exports = async(percent, message) => {
-	console.log(`Loading Screen ${percent}%`);
+module.exports = (percent, message) => {
+	console.log(`Bot WhatsApp memuat layar ${percent}%`);
 }

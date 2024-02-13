@@ -1,11 +1,11 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 const { readdirSync } = require('fs');
 
-client.cmd = new Map();
+client.commands = new Map();
 
 for (const cat of readdirSync('./src/event/')) {
   if(cat == "util") continue;
@@ -29,7 +29,7 @@ for (const cat of readdirSync('./src/command/')) {
       }
 
       if(props.run) {
-        client.cmd.set(props.name, props)
+        client.commands.set(props.name, props)
       }
     }
     delete require.cache[require.resolve(`@src/command/${cat}/${file}`)];

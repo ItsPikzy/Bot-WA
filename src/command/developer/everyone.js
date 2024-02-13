@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 
       p.reply(`Hi @${p.userContact.number}, berhasil di tag sebanyak *${members.length}* peserta\n\n${members.join("\n")}`, { mentions });
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

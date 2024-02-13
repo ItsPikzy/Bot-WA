@@ -15,7 +15,7 @@
     "ms": "^2.1.3",
     "pretty-ms": "^5.1.0",
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "github:ItsPikzy/whatsapp-web.js#b2e07993e7d253307ebec58fe892e0b934af28d7"
+    "whatsapp-web.js": "^1.23.1-alpha.4"
   },
   "repository": {
     "type": "git",

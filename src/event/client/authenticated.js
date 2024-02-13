@@ -1,8 +1,8 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
-module.exports = async() => {
-	console.log('Whatsapp is authenticated!');
+module.exports = () => {
+	console.log('Bot Whatsapp diautentikasi!');
 }

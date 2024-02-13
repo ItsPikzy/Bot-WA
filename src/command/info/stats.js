@@ -1,13 +1,13 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
 	name: "stats",
 	alias: ["botinfo"],
 	cd: 30,
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			const chats = await client.getChats();
 			let info = client.info;
@@ -27,7 +27,7 @@ module.exports = {
 
       p.reply(text);
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

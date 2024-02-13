@@ -1,8 +1,8 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
-module.exports = async(state) => {
-	console.log('Change state', state);
+module.exports = (state) => {
+	console.log('Bot WhatsApp mengubah keadaan.', state);
 }

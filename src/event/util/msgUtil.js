@@ -1,32 +1,32 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 let lock = {};
 
 exports.msgUtil = msgUtil;
-async function msgUtil(msg, contact) {
+async function msgUtil(msg) {
 	try {
 		if(!msg.body || !msg.body.toLowerCase) return;
-
-    const contact = await msg.getContact();
-    contact.number = contact.number != undefined ? contact.number : contact.id.user;
-
 		if(!msg.body.toLowerCase().startsWith(thisConfig.prefix.toLowerCase())) return;
 
     const args = msg.body.slice(thisConfig.prefix.toLowerCase().length).trim().split(/ +/gu);
     const cmd = args.shift().toLowerCase();
     if(!cmd.length) return;
-    let cmds = client.cmd.get(cmd);
-    if(!cmds) cmds = client.cmd.find((cmdc) => cmdc.alias && cmdc.alias.includes(cmd));
+    let cmds = client.commands.get(cmd);
+    if(!cmds) cmds = client.commands.find((cmdc) => cmdc.alias && cmdc.alias.includes(cmd));
     if(cmds) {
+      const contact = await msg.getContact();
+      contact.number = contact.number != undefined ? contact.number : contact.id.user;
+
     	const param = msgInitParam(msg, args, cmds, contact);
     	//console.log(`${param.userContact.number} - ${param.userContact.name || param.userContact.pushname} : use commands ${cmds.name}`);
 
     	if(cmds.owners) {
     		if(!thisConfig.ownersWA.includes(param.userContact.number)) return;
     	}
+
     	if(param.command.cooldowns.has(param.userContact.number)) {
     		const now = Date.now();
         const Time = param.command.cooldowns.get(param.userContact.number);
@@ -37,7 +37,7 @@ async function msgUtil(msg, contact) {
         if(Time > now) {
           if(!lock[param.cooldown_key]) {
             lock[param.cooldown_key] = true;
-            param.reply(`Hi @${param.userContact.number}! slow down and try the command again in *${prettyMs(Time - now, { verbose: true, })}*.`, { mentions: [contact]});
+            param.reply(`Hi @${param.userContact.number}! Pelan-pelan dan coba perintah itu lagi dalam *${prettyMs(Time - now)}*.`, { mentions: [contact]});
           }
           return;
         }
@@ -46,6 +46,7 @@ async function msgUtil(msg, contact) {
         param.deleteCooldown();
         param.setCooldown();
 	    }
+
       if(cmds.isGroup) {
         const groupChat = await msg.getChat();
         if(groupChat.isGroup) {
@@ -60,14 +61,11 @@ async function msgUtil(msg, contact) {
           return param.reply("Perintah ini hanya dapat digunakan dalam grup!")
         }
       }
-    	try {
-        cmds.run(param);
-    	} catch (e) {
-    		console.error(e);
-    	}
+
+      cmds.run(param);
     }
 	} catch (e) {
-		console.error(e);
+		sendLogBot(e);
 	}
 }
 
@@ -96,15 +94,22 @@ function msgInitParam(message, args, cmds, contact) {
 
 const replyMessage = function(message) {
 	return function(msg, options = {}) {
-		const chatid = message._getChatId();
-		return message.reply(msg, chatid, options);
-	}
+    return new Promise(function(resolve, reject) {
+  		const chatid = message._getChatId();
+  		message.reply(msg, chatid, options).then(resolve, reject);
+    });
+  }
 }
 
 const sendMessage = function(message) {
 	return function(msg, options = {}) {
-		if(message.fromMe) return client.sendMessage(message.to, msg, options);
-		else return client.sendMessage(message.from, msg, options);
+    return new Promise(function(resolve, reject) {
+  		if(message.fromMe) {
+        client.sendMessage(message.to, msg, options).then(resolve, reject);
+  		} else {
+        client.sendMessage(message.from, msg, options).then(resolve, reject);
+      }
+    });
 	}
 }
 
@@ -112,10 +117,8 @@ const setCooldown = function(param) {
   return function(cd = 0) {
     if(isInt(cd) && parseInt(cd) > 0) {
       param.command.cooldowns.set(param.userContact.number, Date.now() + (parseInt(cd) * 1000));
-      setTimeout(() => param.deleteCooldown(), parseInt(cd) * 1000);
     } else {
       param.command.cooldowns.set(param.userContact.number, Date.now() + param.command.cd);
-      setTimeout(() => param.deleteCooldown(), param.command.cd);
     }
   }
 }

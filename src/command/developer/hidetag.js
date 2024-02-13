@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 
       p.reply(`${text}\n\n_Made by @${p.userContact.number}_`, { mentions });
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

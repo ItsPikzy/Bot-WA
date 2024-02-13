@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 			if(success) p.reply("Berhasil mengganti judul grup!");
 			else p.reply("Tidak dapat mengganti judulgrup!");
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

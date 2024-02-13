@@ -1,6 +1,6 @@
 /*
  * Bot for WhatsApp
- * Copyright (C) 2023 Pikzyy
+ * Copyright (C) 2023 Pikzy
  */
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
 				+ `\n - Jumlah peserta : *${toFancyNum(chat.participants.length)}*`
             );
 		} catch (e) {
-			console.error(e);
+			sendBotLog(e);
 		}
 	}
 }

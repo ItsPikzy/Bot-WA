@@ -1,5 +1,5 @@
 /*
- * Bot for WhatsApp
+ * RMT Bot for Discord
  * Copyright (C) 2023 Pikzyy
  */
 
@@ -29,14 +29,13 @@ module.exports = {
         if (flags.includes("silent")) return;
         if (typeof evaled !== "string") evaled = util.inspect(evaled, { depth });
         evaled = evaled.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
-        if (evaled.length > 3000) evaled = trimString(evaled, 3000);
 
         p.reply(evaled);
       } catch (e) {
       	p.reply(`${e}`);
       }
     } catch (e) {
-		  console.error(e);
+		  logErrorBot(e);
     }
   }
 }
