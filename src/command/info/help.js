@@ -40,7 +40,7 @@ module.exports = {
           + `\nUsage : *${cmds.usage ? cmds.usage : 'Tidak ada cara penggunaan'}*`)
 			}
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

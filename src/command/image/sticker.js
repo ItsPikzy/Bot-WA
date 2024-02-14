@@ -22,11 +22,11 @@ module.exports = {
           p.send('*[✅]* Berhasil membuat sticker.');
         })
       } catch {
-        sendBotLog(e);
+        console.error(e);
         p.send('*[❎]* Gagal membuat sticker.');
       }
     } catch (e) {
-      sendBotLog(e);
+      console.error(e);
     }
   }
 }

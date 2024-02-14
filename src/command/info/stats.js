@@ -27,7 +27,7 @@ module.exports = {
 
       p.reply(text);
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

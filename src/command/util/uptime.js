@@ -8,11 +8,11 @@ module.exports = {
 	alias: ["up"],
 	deskripsi: 'Shows bot uptime.',
 
-	run:async(p) => {
+	run: (p) => {
 		try {
 			p.reply(`Uptime : *${prettyMs(process.uptime() * 1000, { secondsDecimalDigits: 0, verbose: true })}*`)
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

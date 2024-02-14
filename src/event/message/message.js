@@ -11,6 +11,6 @@ module.exports = async(msg) => {
 			msgUtil(msg);
 		}
 	} catch (e) {
-		sendLogBot(e);
+		console.error(e);
 	}
 }

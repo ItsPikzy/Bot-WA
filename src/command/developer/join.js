@@ -17,7 +17,7 @@ module.exports = {
         p.reply(`Kode undangan itu tampaknya tidak valid.\nError: *_${e.message}_*`);
       }
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

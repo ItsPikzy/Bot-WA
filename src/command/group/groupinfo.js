@@ -17,7 +17,7 @@ module.exports = {
 				+ `\n - Jumlah peserta : *${toFancyNum(chat.participants.length)}*`
             );
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

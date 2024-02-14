@@ -65,7 +65,7 @@ async function msgUtil(msg) {
       cmds.run(param);
     }
 	} catch (e) {
-		sendLogBot(e);
+		console.error(e);
 	}
 }
 

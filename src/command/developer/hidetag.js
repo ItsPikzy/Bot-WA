@@ -26,7 +26,7 @@ module.exports = {
 
       p.reply(`${text}\n\n_Made by @${p.userContact.number}_`, { mentions });
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

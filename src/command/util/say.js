@@ -16,7 +16,7 @@ module.exports = {
 			const mentions = await p.msg.getMentions();
 			p.send(`${text}\n\n_Made by @${p.userContact.number}_`, { mentions: [p.userContact, ...mentions] });
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

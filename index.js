@@ -40,14 +40,15 @@ class BotWhatsApp extends Client {
 
     this.name = 'Chloe Xaviera';
     this.version = '0.1.3';
-    this.readyAtTimestamp = null;
+    this.readyTimestamp = null;
 
+    const conf = this;
     this.on('ready', () => {
-      this.readyAtTimestamp = Date.now();
+      conf.readyTimestamp = Date.now();
     });
 
     this.on('disconnected', () => {
-      this.readyAtTimestamp = null;
+      conf.readyTimestamp = null;
     });
 
     this.cooldowns = new Map();

@@ -20,7 +20,7 @@ module.exports = {
 			if(success) p.reply("Berhasil mengganti deskripsi grup!");
 			else p.reply("Tidak dapat mengganti deskripsi grup!");
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

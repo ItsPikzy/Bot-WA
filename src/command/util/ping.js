@@ -11,7 +11,7 @@ module.exports = {
 			await p.msg.getChat();
 			p.reply(`Pong 🏓\n${Date.now() - time}ms`);
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

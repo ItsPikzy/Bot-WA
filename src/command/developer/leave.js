@@ -13,7 +13,7 @@ module.exports = {
 
 	    chat.leave();
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

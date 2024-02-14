@@ -20,7 +20,7 @@ module.exports = {
 			if(success) p.reply("Berhasil mengganti judul grup!");
 			else p.reply("Tidak dapat mengganti judulgrup!");
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

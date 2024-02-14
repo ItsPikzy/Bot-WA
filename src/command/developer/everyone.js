@@ -22,7 +22,7 @@ module.exports = {
 
       p.reply(`Hi @${p.userContact.number}, berhasil di tag sebanyak *${members.length}* peserta\n\n${members.join("\n")}`, { mentions });
 		} catch (e) {
-			sendBotLog(e);
+			console.error(e);
 		}
 	}
 }

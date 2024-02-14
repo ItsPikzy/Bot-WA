@@ -17,11 +17,11 @@ module.exports = {
           caption: quotedMsg.body.length >= 0 ? quotedMsg.body : 'Gada caption'
         });
       } catch {
-        sendBotLog(e);
+        console.error(e);
         p.reply('*[❎]* Gagal memuat gambar.');
       }
     } catch (e) {
-      sendBotLog(e);
+      console.error(e);
     }
   }
 }
