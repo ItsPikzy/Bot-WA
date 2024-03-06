@@ -3,7 +3,7 @@
  * Copyright (C) 2023 Pikzy
  */
 
-module.exports = (session) => {
-	console.log('Kegagalan autentikasi bot whatsapp, memulai ulang...', session);
+module.exports = (client, clientId, session) => {
+	console.log(`Client ID ${clientId} : Kegagalan autentikasi bot whatsapp, memulai ulang...`, session);
   client.restart();
 }

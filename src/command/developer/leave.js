@@ -7,7 +7,7 @@ module.exports = {
 	name: "leave",
 	owners: true,
 	isGroup: true,
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			let chat = await p.msg.getChat();
 

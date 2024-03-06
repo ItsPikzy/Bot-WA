@@ -5,7 +5,7 @@
 
 module.exports = {
 	name: "ping",
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			let time = Date.now();
 			await p.msg.getChat();

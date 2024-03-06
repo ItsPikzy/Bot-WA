@@ -13,7 +13,7 @@ module.exports = {
   owners: true,
   cd: 1,
   
-  run:async(p) => {
+  run: async(p) => {
     try {
       const { args, flags } = parseQuery(p.args);
       try {

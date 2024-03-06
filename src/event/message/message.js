@@ -5,10 +5,10 @@
 
 const { msgUtil } = require('../util/msgUtil.js');
 
-module.exports = async(msg) => {
+module.exports = async(client, clientId, msg) => {
 	try {
 		if(msg.from != 'status@broadcast') {
-			msgUtil(msg);
+			msgUtil(client, clientId, msg);
 		}
 	} catch (e) {
 		console.error(e);

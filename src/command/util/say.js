@@ -5,7 +5,7 @@
 
 module.exports = {
 	name: "say",
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			let text = p.args.join(' ');
 			if(!text) return p.reply("Mohon berikan teks untuk di balas kembali oleh bot!");

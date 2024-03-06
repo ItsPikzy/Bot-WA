@@ -31,8 +31,8 @@ module.exports = {
 
       	p.reply(`My Commands List\n\n${help.join('\n').toString()}`);
 			} else {
-		    let cmds = client.commands.get(p.args[0]);
-		    if(!cmds) cmds = client.commands.find((cmdc) => cmdc.alias && cmdc.alias.includes(cmd));
+		    let cmds = p.client.commands.get(p.args[0]);
+		    if(!cmds) cmds = p.client.commands.find((cmdc) => cmdc.alias && cmdc.alias.includes(cmd));
         if (!cmds) p.reply(`Command tidak ditemukan`);
 
         p.reply(`Nama perintah : *${cmds.name}*\nAlias : *${(Array.isArray(cmds.alias)) ? cmds.alias.join(', ') : 'Alias tidak ada'}*`

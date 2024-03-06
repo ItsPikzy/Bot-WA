@@ -3,6 +3,6 @@
  * Copyright (C) 2023 Pikzy
  */
 
-module.exports = (percent, message) => {
-	console.log(`Bot WhatsApp memuat layar ${percent}%`);
+module.exports = (client, clientId,  percent, message) => {
+	console.log(`Client ID ${clientId} : Bot WhatsApp memuat layar ${percent}%`);
 }

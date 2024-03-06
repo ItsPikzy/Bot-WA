@@ -6,10 +6,24 @@
 require('dotenv').config();
 require('module-alias/register');
 
-const { Client, LocalAuth, RemoteAuth } = require('whatsapp-web.js');/*
-const { MongoStore } = require('wwebjs-mongo');
-const mongoose = require('mongoose');
-const store = new MongoStore({ mongoose: mongoose });*/
+global.thisConfig = require('@src/config.js');
+
+require('@util/global');
+require('@util/util');
+
+global.thisConfig = require('@src/config.js');
+
+const { version } = require('@root/package.json');
+const { Client, LocalAuth } = require('whatsapp-web.js');
+const eventLoad = require('@util/loader.js');
+
+// FFmpeg
+const ffmpeg = require("fluent-ffmpeg");
+const ffprobe = require("@ffprobe-installer/ffprobe");
+const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
+const ffmpegs = require("ffmpeg-static");
+ffmpeg.setFfprobePath(ffprobe.path);
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 class BotWhatsApp extends Client {
   constructor() {
@@ -17,7 +31,7 @@ class BotWhatsApp extends Client {
       restartOnAuthFail: true,
       puppeteer: {
         headless: true,
-        args: [ '--no-sandbox', '--disable-setuid-sandbox' ], /*[
+        args: /*[ '--no-sandbox', '--disable-setuid-sandbox' ], */ [
           '--no-sandbox',
           '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
@@ -26,21 +40,23 @@ class BotWhatsApp extends Client {
           '--no-zygote',
           '--single-process', // <- this one doesn't works in Windows
           '--disable-gpu'
-        ],*/
-        //ignoreDefaultArgs: ['--disable-extensions'],
-        //executablePath: '/usr/bin/chromium-browser',
+        ],
+        ignoreDefaultArgs: ['--disable-extensions'],
+        executablePath: '/usr/bin/chromium-browser', // sesuain sama hosting, make linux apa windows
         //executablePath: '/usr/bin/google-chrome',
       },
-      ffmpeg: './ffmpeg.exe',
-      authStrategy: new LocalAuth() /*new RemoteAuth({
-        store: store,
-        backupSyncIntervalMs: 1000000,
-      })*/
+      //ffmpeg: '/root/ffmpeg.exe',
+      ffmpegPath: ffmpegs,
+      authStrategy: new LocalAuth({
+        clientId: `client-0`
+      })
     });
 
     this.name = 'Chloe Xaviera';
-    this.version = '0.1.3';
+    this.version = version;
     this.readyTimestamp = null;
+
+    this.wait = require('util').promisify(setTimeout);
 
     const conf = this;
     this.on('ready', () => {
@@ -48,11 +64,12 @@ class BotWhatsApp extends Client {
     });
 
     this.on('disconnected', () => {
-      conf.readyTimestamp = null;
+      conf.restart();
     });
 
     this.cooldowns = new Map();
     this.commands = new Map();
+    this.ffmpeg = ffmpeg;
   }
 
   get readyAt() {
@@ -67,18 +84,18 @@ class BotWhatsApp extends Client {
     return this.readyTimestamp && Date.now() - this.readyTimestamp >= 21600000;
   }
 
-  restart() {
+  async restart() {
     if(this.readyAt) {
+      console.log(`Client ID 0 : Restarting.......`);
       this.readyTimestamp = null;
-      this.destroy();
-      this.initialize();
+      await this.destroy();
+      await this.wait(20000); // waktu tunggu 20 detik
+      await this.initialize();
       return true;
     } else return false;
   }
 }
 
-global.client = new BotWhatsApp();
-global.thisConfig = require('./src/config.js');
+const client = new BotWhatsApp();
 client.initialize();
-
-require('@util/global.js');
+eventLoad(client);

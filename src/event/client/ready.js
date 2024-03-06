@@ -3,6 +3,6 @@
  * Copyright (C) 2023 Pikzy
  */
 
-module.exports = () => {
-	console.log('Bot WhatsApp berhasil terhubung.');
+module.exports = (client, clientId,  ) => {
+	console.log(`Client ID ${clientId} : Bot WhatsApp berhasil terhubung.`);
 }

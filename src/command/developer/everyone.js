@@ -7,14 +7,14 @@ module.exports = {
 	name: "everyone",
 	owners: true,
   isGroup: true,
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			const chat = await p.msg.getChat();
       let members = [];
     	let mentions = [];
 
       for(let participant of chat.participants) {
-        const contact = await client.getContactById(participant.id._serialized);
+        const contact = await p.client.getContactById(participant.id._serialized);
 
         mentions.push(contact);
         if(participant.id.user != p.userContact.number) members.push(`• @${participant.id.user}`);

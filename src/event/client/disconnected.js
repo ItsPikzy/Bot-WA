@@ -3,7 +3,6 @@
  * Copyright (C) 2023 Pikzy
  */
 
-module.exports = (reason) => {
-	console.log('Bot Whatsapp terputus dengan alasan', reason);
-	client.restart();
+module.exports = (client, clientId,  reason) => {
+	console.log(`Client ID ${clientId} : Bot Whatsapp terputus dengan alasan`, reason);
 }

@@ -17,6 +17,3 @@ for (const file of readdirSync(`./src/util/global/`).filter((file) => file.endsW
 function getType(obj){
   return Object.prototype.toString.call(obj).match(/\[object (\w+)\]/)[1];
 }
-
-require('./util.js');
-require('./loader.js');

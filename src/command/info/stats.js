@@ -9,8 +9,8 @@ module.exports = {
 	cd: 30,
 	run: async(p) => {
 		try {
-			const chats = await client.getChats();
-			let info = client.info;
+			const chats = await p.client.getChats();
+			let info = p.client.info;
 
       let text = `*Connection info*`;
       text += `\n - User name: *${info.pushname}*`;
@@ -18,7 +18,7 @@ module.exports = {
       text += `\n - Platform: *${info.platform}*`;
 
       text += `\n\n*Information*`;
-      text += `\n - Created by : *Pikzyy*`;
+      text += `\n - Created by : *Pikzy*`;
       text += `\n - Chat Open : *${chats.length}*`;
       text += `\n - Bot CPU Usage : *${(process.cpuUsage().system / 1024 / 1024).toFixed(2)}%*`;
       text += `\n - Bot Memory Usage : *${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}MB*`;

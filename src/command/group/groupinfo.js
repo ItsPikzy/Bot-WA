@@ -6,7 +6,7 @@
 module.exports = {
 	name: "groupinfo",
 	isGroup: true,
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			let chat = await p.msg.getChat();
 

@@ -9,7 +9,7 @@ module.exports = {
 	isGroup: true,
 	botAdmin: true,
 	userAdmin: true,
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			let chat = await p.msg.getChat();
 			let subject = p.args.join(' ');

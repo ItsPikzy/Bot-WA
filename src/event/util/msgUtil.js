@@ -6,7 +6,7 @@
 let lock = {};
 
 exports.msgUtil = msgUtil;
-async function msgUtil(msg) {
+async function msgUtil(client, clientId, msg) {
 	try {
 		if(!msg.body || !msg.body.toLowerCase) return;
 		if(!msg.body.toLowerCase().startsWith(thisConfig.prefix.toLowerCase())) return;
@@ -20,14 +20,14 @@ async function msgUtil(msg) {
       const contact = await msg.getContact();
       contact.number = contact.number != undefined ? contact.number : contact.id.user;
 
-    	const param = msgInitParam(msg, args, cmds, contact);
+    	const param = msgInitParam(client, clientId, msg, args, cmds, contact);
     	//console.log(`${param.userContact.number} - ${param.userContact.name || param.userContact.pushname} : use commands ${cmds.name}`);
 
     	if(cmds.owners) {
     		if(!thisConfig.ownersWA.includes(param.userContact.number)) return;
     	}
 
-    	if(param.command.cooldowns.has(param.userContact.number)) {
+    	if(param.command.cooldowns.has(param.userContact.number) && !thisConfig.ownersWA.includes(param.userContact.number)) {
     		const now = Date.now();
         const Time = param.command.cooldowns.get(param.userContact.number);
         let time = Time - now;
@@ -70,8 +70,9 @@ async function msgUtil(msg) {
 }
 
 exports.msgInitParam = msgInitParam;
-function msgInitParam(message, args, cmds, contact) {
+function msgInitParam(client, clientId, message, args, cmds, contact) {
 	const param = {
+    client, clientId,
     msg: message,
     args: args,
     command: cmds,
@@ -80,7 +81,7 @@ function msgInitParam(message, args, cmds, contact) {
     fromMe: message.fromMe,
     mentions: message.mentionedIds,
     reply: replyMessage(message),
-    send: sendMessage(message)
+    send: sendMessage(client, message)
 	}
 	
 
@@ -101,7 +102,7 @@ const replyMessage = function(message) {
   }
 }
 
-const sendMessage = function(message) {
+const sendMessage = function(client, message) {
 	return function(msg, options = {}) {
     return new Promise(function(resolve, reject) {
   		if(message.fromMe) {

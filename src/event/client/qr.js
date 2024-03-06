@@ -5,7 +5,9 @@
 
 const qrcode = require('qrcode-terminal');
 
-module.exports = (qr) => {
-	console.log("Scan QR code pada WhatsAppnya ya!");
-	qrcode.generate(qr, {small: true});
+module.exports = (client, clientId,  qr) => {
+	console.log(`Client ID ${clientId} : Scan QR code pada WhatsAppnya ya!`);
+	qrcode.generate(qr, {
+    small: true
+  });
 }

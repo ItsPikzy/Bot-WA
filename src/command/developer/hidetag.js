@@ -7,7 +7,7 @@ module.exports = {
 	name: "hidetag",
 	owners: true,
   isGroup: true,
-	run:async(p) => {
+	run: async(p) => {
 		try {
 			const text = p.args.join(' ');
 			if(!text) return p.reply("Mohon berikan teks untuk di balas kembali oleh bot!");
@@ -18,7 +18,7 @@ module.exports = {
     	let mentions = [];
 
       for(let participant of chat.participants) {
-        const contact = await client.getContactById(participant.id._serialized);
+        const contact = await p.client.getContactById(participant.id._serialized);
 
         mentions.push(contact);
         if(participant.id.user != p.userContact.number) members.push(`• @${participant.id.user}`);
